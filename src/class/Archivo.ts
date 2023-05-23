@@ -2,13 +2,17 @@ import { writeFile } from 'file-system';
 
 export class Archivo {
 
-    static async CrearArchivo(nombreArchivo: string, data: string) {
+    async CrearArchivo(nombreCarpeta: string, nombreArchivo: string, data: string) {
         try {
-            await writeFile(nombreArchivo, data);
-            console.log(`Wrote data to ${nombreArchivo}`);
+            await writeFile(this.Concatenar(nombreCarpeta, nombreArchivo), data);
+            console.log(`Archivo ${nombreArchivo} creado.`);
         } catch (error) {
-            console.log(`Nombre de archivo: ${nombreArchivo}`);
-            console.error(`Got an error trying to write the file: ${error.message}`);
+            console.error(`Ha ocurrido un error al crear el archivo: ${error.message}`);
         }
+    }
+
+    // fuciones transversales
+    Concatenar(nombreCarpeta: string, nombreArchivo: string): string {
+        return `${nombreCarpeta}/${nombreArchivo}`;
     }
 }
